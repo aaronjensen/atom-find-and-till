@@ -1,4 +1,4 @@
-# Find Till
+# Find and Till
 
 Quickly jump to the next character you type on your current line.
 Find (jump to just before character) and Till (jump to just after letter) are both supported in either the forward direction or the reverse.
