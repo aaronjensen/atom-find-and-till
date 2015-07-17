@@ -6,7 +6,12 @@
   "keywords": [
   ],
   "activationCommands": {
-    "atom-workspace": "find-till:toggle"
+    "atom-workspace": [
+      "find-till:find",
+      "find-till:find-backwards",
+      "find-till:till",
+      "find-till:till-backwards"
+    ]
   },
   "repository": "https://github.com/atom/find-till",
   "license": "MIT",

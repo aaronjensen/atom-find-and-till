@@ -1,6 +1,12 @@
 FindTillInputElement = require './find-till-input-element'
 {CompositeDisposable} = require 'atom'
 
+reverse = (line, char, cursorPos) ->
+  line.slice(0, cursorPos).lastIndexOf(char)
+
+forward = (line, char, cursorPos) ->
+  line.indexOf(char, cursorPos + 1)
+
 module.exports = FindTill =
   subscriptions: null
 
@@ -9,14 +15,20 @@ module.exports = FindTill =
     @subscriptions = new CompositeDisposable
 
     # Register command that toggles this view
-    @subscriptions.add atom.commands.add 'atom-text-editor', 'find-till:toggle': => @toggle()
+    @subscriptions.add atom.commands.add 'atom-text-editor', 'find-till:find': => @find()
+    @subscriptions.add atom.commands.add 'atom-text-editor', 'find-till:find-backwards': => @findBackwards()
+    @subscriptions.add atom.commands.add 'atom-text-editor', 'find-till:till': => @till()
+    @subscriptions.add atom.commands.add 'atom-text-editor', 'find-till:till-backwards': => @tillBackwards()
 
   deactivate: ->
     @subscriptions.dispose()
 
-  serialize: ->
+  find: -> @findTill(0, forward)
+  findBackwards: -> @findTill(1, reverse)
+  till: -> @findTill(1, forward)
+  tillBackwards: -> @findTill(0, reverse)
 
-  toggle: ->
+  findTill: (offset, finder) ->
     return unless editor = atom.workspace.getActiveTextEditor()
 
     new FindTillInputElement().initialize (text) ->
@@ -25,8 +37,8 @@ module.exports = FindTill =
 
       cursor = editor.getCursorBufferPosition()
       line = editor.lineTextForBufferRow(cursor.row)
-      index = line.indexOf(char, cursor.column + 1)
+      index = finder(line, char, cursor.column)
 
       return unless index > 0
 
-      editor.setCursorBufferPosition([cursor.row, index])
+      editor.setCursorBufferPosition([cursor.row, index + offset])
