@@ -1,6 +1,6 @@
 # Find and Till
 
-Quickly jump to the next character you type on your current line. If you've used Vim, it's just like `f` and `t` and also `vf` and `vt`.
+Quickly jump to the next character you type on your current line. If you've used Vim, it's just like `f` and `t` and also `vf` and `vt` but without needing vim-mode.
 
 ![find-and-till](https://cloud.githubusercontent.com/assets/8588/8742523/26480284-2c1b-11e5-86c7-be78a28e6289.gif)
 
