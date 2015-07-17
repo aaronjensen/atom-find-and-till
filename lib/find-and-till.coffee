@@ -36,14 +36,14 @@ module.exports = FindAndTill =
   deactivate: ->
     @subscriptions.dispose()
 
-  find: -> @FindAndTill(0, forward, moveCursors)
-  selectFind: -> @FindAndTill(0, forward, selectToCursors)
-  findBackwards: -> @FindAndTill(1, reverse, moveCursors)
-  selectFindBackwards: -> @FindAndTill(1, reverse, selectToCursors)
-  till: -> @FindAndTill(1, forward, moveCursors)
-  selectTill: -> @FindAndTill(1, forward, selectToCursors)
-  tillBackwards: -> @FindAndTill(0, reverse, moveCursors)
-  selectTillBackwards: -> @FindAndTill(0, reverse, selectToCursors)
+  till: -> @FindAndTill(0, forward, moveCursors)
+  selectTill: -> @FindAndTill(0, forward, selectToCursors)
+  tillBackwards: -> @FindAndTill(1, reverse, moveCursors)
+  selectTillBackwards: -> @FindAndTill(1, reverse, selectToCursors)
+  find: -> @FindAndTill(1, forward, moveCursors)
+  selectFind: -> @FindAndTill(1, forward, selectToCursors)
+  findBackwards: -> @FindAndTill(0, reverse, moveCursors)
+  selectFindBackwards: -> @FindAndTill(0, reverse, selectToCursors)
 
   FindAndTill: (offset, finder, cursorHandler) ->
     return unless editor = atom.workspace.getActiveTextEditor()

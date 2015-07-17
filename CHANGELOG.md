@@ -1,3 +1,6 @@
+## 1.0.0
+* Swap find and till, I got it backwards. Oops!
+
 ## 0.2.0
 * Support selection
 
