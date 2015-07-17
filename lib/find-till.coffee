@@ -9,7 +9,7 @@ module.exports = FindTill =
     @subscriptions = new CompositeDisposable
 
     # Register command that toggles this view
-    @subscriptions.add atom.commands.add 'atom-workspace', 'find-till:toggle': => @toggle()
+    @subscriptions.add atom.commands.add 'atom-text-editor', 'find-till:toggle': => @toggle()
 
   deactivate: ->
     @subscriptions.dispose()
@@ -17,6 +17,16 @@ module.exports = FindTill =
   serialize: ->
 
   toggle: ->
-    el = new FindTillInputElement()
-    el.initialize (text) ->
-      console.log("found", text)
+    return unless editor = atom.workspace.getActiveTextEditor()
+
+    new FindTillInputElement().initialize (text) ->
+      return unless text
+      char = text[0]
+
+      cursor = editor.getCursorBufferPosition()
+      line = editor.lineTextForBufferRow(cursor.row)
+      index = line.indexOf(char, cursor.column + 1)
+
+      return unless index > 0
+
+      editor.setCursorBufferPosition([cursor.row, index])
