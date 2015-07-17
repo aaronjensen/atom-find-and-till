@@ -13,13 +13,13 @@ There are currently no default bindings, but here are some examples:
 ```cson
 'atom-text-editor':
   'ctrl-s': 'find-and-till:find'
-  'shift-ctrl-s': 'find-and-till:select-find'
+  'ctrl-shift-s': 'find-and-till:select-find'
   'ctrl-r': 'find-and-till:find-backwards'
-  'shift-ctrl-r': 'find-and-till:select-find-backwards'
+  'ctrl-shift-r': 'find-and-till:select-find-backwards'
   'ctrl-alt-s': 'find-and-till:till'
-  'shift-ctrl-alt-s': 'find-and-till:select-till'
+  'ctrl-alt-shift-s': 'find-and-till:select-till'
   'ctrl-alt-r': 'find-and-till:till-backwards'
-  'shift-ctrl-alt-r': 'find-and-till:select-till-backwards'
+  'ctrl-alt-shift-r': 'find-and-till:select-till-backwards'
 ```
 
 ### Todo

@@ -7,12 +7,12 @@
 
 # For more detailed documentation see
 # https://atom.io/docs/latest/behind-atom-keymaps-in-depth
-# 'atom-text-editor':
-#   '': 'find-and-till:find'
-#   '': 'find-and-till:select-find'
-#   '': 'find-and-till:find-backwards'
-#   '': 'find-and-till:select-find-backwards'
-#   '': 'find-and-till:till'
-#   '': 'find-and-till:select-till'
-#   '': 'find-and-till:till-backwards'
-#   '': 'find-and-till:select-till-backwards'
+# 'body atom-text-editor':
+#   'ctrl-s': 'find-and-till:find'
+#   'ctrl-shift-s': 'find-and-till:select-find'
+#   'ctrl-r': 'find-and-till:find-backwards'
+#   'ctrl-shift-r': 'find-and-till:select-find-backwards'
+#   'ctrl-alt-s': 'find-and-till:till'
+#   'ctrl-alt-shift-s': 'find-and-till:select-till'
+#   'ctrl-alt-r': 'find-and-till:till-backwards'
+#   'ctrl-alt-shift-r': 'find-and-till:select-till-backwards'
