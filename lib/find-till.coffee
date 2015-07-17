@@ -2,10 +2,16 @@ FindTillInputElement = require './find-till-input-element'
 {CompositeDisposable} = require 'atom'
 
 reverse = (line, char, cursorPos) ->
-  line.slice(0, cursorPos).lastIndexOf(char)
+  line.slice(0, cursorPos - 1).lastIndexOf(char)
 
 forward = (line, char, cursorPos) ->
   line.indexOf(char, cursorPos + 1)
+
+moveCursors = (editor, [first, rest...]) ->
+  [row, column] = first
+  editor.setCursorBufferPosition([row, column])
+  rest.forEach ([row, column]) ->
+    editor.addCursorAtBufferPosition([row, column])
 
 module.exports = FindTill =
   subscriptions: null
@@ -35,10 +41,10 @@ module.exports = FindTill =
       return unless text
       char = text[0]
 
-      cursor = editor.getCursorBufferPosition()
-      line = editor.lineTextForBufferRow(cursor.row)
-      index = finder(line, char, cursor.column)
+      newCursors = editor.getCursorBufferPositions().map (cursor) ->
+        line = editor.lineTextForBufferRow(cursor.row)
+        index = finder(line, char, cursor.column)
+        return cursor unless index > 0
+        [cursor.row, index + offset]
 
-      return unless index > 0
-
-      editor.setCursorBufferPosition([cursor.row, index + offset])
+      moveCursors(editor, newCursors)
