@@ -1,4 +1,4 @@
-FindTillInputElement = require './find-till-input-element'
+FindAndTillInputElement = require './find-and-till-input-element'
 {CompositeDisposable} = require 'atom'
 
 reverse = (line, char, cursorPos) ->
@@ -13,7 +13,7 @@ moveCursors = (editor, [first, rest...]) ->
   rest.forEach ([row, column]) ->
     editor.addCursorAtBufferPosition([row, column])
 
-module.exports = FindTill =
+module.exports = FindAndTill =
   subscriptions: null
 
   activate: (state) ->
@@ -21,23 +21,23 @@ module.exports = FindTill =
     @subscriptions = new CompositeDisposable
 
     # Register command that toggles this view
-    @subscriptions.add atom.commands.add 'atom-text-editor', 'find-till:find': => @find()
-    @subscriptions.add atom.commands.add 'atom-text-editor', 'find-till:find-backwards': => @findBackwards()
-    @subscriptions.add atom.commands.add 'atom-text-editor', 'find-till:till': => @till()
-    @subscriptions.add atom.commands.add 'atom-text-editor', 'find-till:till-backwards': => @tillBackwards()
+    @subscriptions.add atom.commands.add 'atom-text-editor', 'find-and-till:find': => @find()
+    @subscriptions.add atom.commands.add 'atom-text-editor', 'find-and-till:find-backwards': => @findBackwards()
+    @subscriptions.add atom.commands.add 'atom-text-editor', 'find-and-till:till': => @till()
+    @subscriptions.add atom.commands.add 'atom-text-editor', 'find-and-till:till-backwards': => @tillBackwards()
 
   deactivate: ->
     @subscriptions.dispose()
 
-  find: -> @findTill(0, forward)
-  findBackwards: -> @findTill(1, reverse)
-  till: -> @findTill(1, forward)
-  tillBackwards: -> @findTill(0, reverse)
+  find: -> @FindAndTill(0, forward)
+  findBackwards: -> @FindAndTill(1, reverse)
+  till: -> @FindAndTill(1, forward)
+  tillBackwards: -> @FindAndTill(0, reverse)
 
-  findTill: (offset, finder) ->
+  FindAndTill: (offset, finder) ->
     return unless editor = atom.workspace.getActiveTextEditor()
 
-    new FindTillInputElement().initialize (text) ->
+    new FindAndTillInputElement().initialize (text) ->
       return unless text
       char = text[0]
 

@@ -1,5 +1,21 @@
-# find-till package
+# Find Till
 
-A short description of your package.
+Quickly jump to the next character you type on your current line.
+Find (jump to just before character) and Till (jump to just after letter) are both supported in either the forward direction or the reverse.
+Multiple cursors are supported.
 
-![A screenshot of your package](https://f.cloud.github.com/assets/69169/2290250/c35d867a-a017-11e3-86be-cd7c5bf3ff9b.gif)
+There are currently no default bindings, but here are some examples:
+
+```cson
+'atom-text-editor':
+  'ctrl-s': 'find-and-till:find'
+  'ctrl-r': 'find-and-till:find-backwards'
+  'ctrl-alt-s': 'find-and-till:till'
+  'ctrl-alt-r': 'find-and-till:till-backwards'
+```
+
+### Todo
+
+* Support selection
+* Come up with sensible defaults
+* Learn how to write specs?

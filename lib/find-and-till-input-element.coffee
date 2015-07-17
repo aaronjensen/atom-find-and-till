@@ -1,6 +1,6 @@
-class FindTillInputElement extends HTMLDivElement
+class FindAndTillInputElement extends HTMLDivElement
   createdCallback: ->
-    @className = "find-till-input"
+    @className = "find-and-till-input"
     @editorContainer = document.createElement("div")
     @editorContainer.className = "editor-container"
     @appendChild(@editorContainer)
@@ -43,6 +43,6 @@ class FindTillInputElement extends HTMLDivElement
     @panel.destroy()
 
 module.exports =
-  document.registerElement("find-till-input"
+  document.registerElement("find-and-till-input"
     extends: "div"
-    prototype: FindTillInputElement.prototype)
+    prototype: FindAndTillInputElement.prototype)

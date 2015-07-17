@@ -1,3 +1,4 @@
 ## 0.1.0 - First Release
-* Every feature added
-* Every bug fixed
+* Support find and till
+* Support forwards and backwards
+* Support Multiple cursors
