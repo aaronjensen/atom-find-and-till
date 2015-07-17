@@ -1,5 +1,5 @@
 FindAndTillInputElement = require './find-and-till-input-element'
-{CompositeDisposable} = require 'atom'
+{CompositeDisposable, Point, Range} = require 'atom'
 
 reverse = (line, char, cursorPos) ->
   line.slice(0, cursorPos - 1).lastIndexOf(char)
@@ -7,11 +7,14 @@ reverse = (line, char, cursorPos) ->
 forward = (line, char, cursorPos) ->
   line.indexOf(char, cursorPos + 1)
 
-moveCursors = (editor, [first, rest...]) ->
-  [row, column] = first
-  editor.setCursorBufferPosition([row, column])
-  rest.forEach ([row, column]) ->
-    editor.addCursorAtBufferPosition([row, column])
+moveCursors = (editor, [[first], rest...]) ->
+  editor.setCursorBufferPosition(first)
+  rest.forEach ([cursor]) ->
+    editor.addCursorAtBufferPosition(cursor)
+
+selectToCursors = (editor, cursors) ->
+  cursors.forEach ([next, prev]) ->
+    editor.addSelectionForBufferRange(new Range(prev, next))
 
 module.exports = FindAndTill =
   subscriptions: null
@@ -22,19 +25,27 @@ module.exports = FindAndTill =
 
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-text-editor', 'find-and-till:find': => @find()
+    @subscriptions.add atom.commands.add 'atom-text-editor', 'find-and-till:select-find': => @selectFind()
     @subscriptions.add atom.commands.add 'atom-text-editor', 'find-and-till:find-backwards': => @findBackwards()
+    @subscriptions.add atom.commands.add 'atom-text-editor', 'find-and-till:select-find-backwards': => @selectFindBackwards()
     @subscriptions.add atom.commands.add 'atom-text-editor', 'find-and-till:till': => @till()
+    @subscriptions.add atom.commands.add 'atom-text-editor', 'find-and-till:select-till': => @selectTill()
     @subscriptions.add atom.commands.add 'atom-text-editor', 'find-and-till:till-backwards': => @tillBackwards()
+    @subscriptions.add atom.commands.add 'atom-text-editor', 'find-and-till:select-till-backwards': => @selectTillBackwards()
 
   deactivate: ->
     @subscriptions.dispose()
 
-  find: -> @FindAndTill(0, forward)
-  findBackwards: -> @FindAndTill(1, reverse)
-  till: -> @FindAndTill(1, forward)
-  tillBackwards: -> @FindAndTill(0, reverse)
+  find: -> @FindAndTill(0, forward, moveCursors)
+  selectFind: -> @FindAndTill(0, forward, selectToCursors)
+  findBackwards: -> @FindAndTill(1, reverse, moveCursors)
+  selectFindBackwards: -> @FindAndTill(1, reverse, selectToCursors)
+  till: -> @FindAndTill(1, forward, moveCursors)
+  selectTill: -> @FindAndTill(1, forward, selectToCursors)
+  tillBackwards: -> @FindAndTill(0, reverse, moveCursors)
+  selectTillBackwards: -> @FindAndTill(0, reverse, selectToCursors)
 
-  FindAndTill: (offset, finder) ->
+  FindAndTill: (offset, finder, cursorHandler) ->
     return unless editor = atom.workspace.getActiveTextEditor()
 
     new FindAndTillInputElement().initialize (text) ->
@@ -44,7 +55,7 @@ module.exports = FindAndTill =
       newCursors = editor.getCursorBufferPositions().map (cursor) ->
         line = editor.lineTextForBufferRow(cursor.row)
         index = finder(line, char, cursor.column)
-        return cursor unless index > 0
-        [cursor.row, index + offset]
+        return [cursor, cursor] unless index > 0
+        [new Point(cursor.row, index + offset), cursor]
 
-      moveCursors(editor, newCursors)
+      cursorHandler(editor, newCursors)

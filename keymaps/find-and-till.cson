@@ -8,7 +8,11 @@
 # For more detailed documentation see
 # https://atom.io/docs/latest/behind-atom-keymaps-in-depth
 # 'atom-text-editor':
-  # 'alt-s': 'find-and-till:find'
-  # 'alt-s': 'find-and-till:find-backwards'
-  # 'alt-r': 'find-and-till:till'
-  # 'alt-r': 'find-and-till:till-backwards'
+#   '': 'find-and-till:find'
+#   '': 'find-and-till:select-find'
+#   '': 'find-and-till:find-backwards'
+#   '': 'find-and-till:select-find-backwards'
+#   '': 'find-and-till:till'
+#   '': 'find-and-till:select-till'
+#   '': 'find-and-till:till-backwards'
+#   '': 'find-and-till:select-till-backwards'

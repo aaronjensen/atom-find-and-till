@@ -7,9 +7,13 @@
   "activationCommands": {
     "atom-workspace": [
       "find-and-till:find",
+      "find-and-till:select-find",
       "find-and-till:find-backwards",
+      "find-and-till:select-find-backwards",
       "find-and-till:till",
-      "find-and-till:till-backwards"
+      "find-and-till:select-till",
+      "find-and-till:till-backwards",
+      "find-and-till:select-till-backwards"
     ]
   },
   "repository": "https://github.com/aaronjensen/atom-find-and-till",
