@@ -48,7 +48,7 @@ module.exports = FindAndTill =
   FindAndTill: (offset, finder, cursorHandler) ->
     return unless editor = atom.workspace.getActiveTextEditor()
 
-    new FindAndTillInputElement().initialize (text) ->
+    new FindAndTillInputElement().initialize editor, (text) ->
       return unless text
       char = text[0]
 

@@ -5,7 +5,7 @@ class FindAndTillInputElement extends HTMLDivElement
     @editorContainer.className = "editor-container"
     @appendChild(@editorContainer)
 
-  initialize: (@callback) ->
+  initialize: (@mainEditor, @callback) ->
     @editorElement = document.createElement "atom-text-editor"
     @editorElement.classList.add('editor')
     @editorElement.getModel().setMini(true)
@@ -13,6 +13,7 @@ class FindAndTillInputElement extends HTMLDivElement
     @editorContainer.appendChild(@editorElement)
 
     @panel = atom.workspace.addBottomPanel(item: this, priority: 100)
+    @mainEditor.findAndTillInputView = @editorElement
 
     @focus()
     @handleEvents()
@@ -39,7 +40,9 @@ class FindAndTillInputElement extends HTMLDivElement
     @removePanel()
 
   removePanel: ->
+    return unless @mainEditor.findAndTillInputView
     atom.workspace.getActivePane().activate()
+    @mainEditor.findAndTillInputView = null
     @panel.destroy()
 
 module.exports =
