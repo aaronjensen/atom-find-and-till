@@ -25,4 +25,3 @@ There are currently no default bindings, but here are some examples:
 ### Todo
 
 * Come up with sensible defaults
-* Learn how to write specs?

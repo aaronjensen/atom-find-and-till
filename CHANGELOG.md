@@ -1,3 +1,7 @@
+## 1.0.2
+* Fix bug when using find against first character in line
+* Add specs
+
 ## 1.0.1
 * Update README
 
