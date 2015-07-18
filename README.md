@@ -1,4 +1,4 @@
-# Find and Till
+# Find and Till [![Build Status](https://travis-ci.org/aaronjensen/atom-find-and-till.svg?branch=master)](https://travis-ci.org/aaronjensen/atom-find-and-till)
 
 Quickly jump to the next character you type on your current line. If you've used Vim, it's just like `f` and `t` and also `vf` and `vt` but without needing vim-mode.
 
