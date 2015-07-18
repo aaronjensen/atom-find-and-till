@@ -40,9 +40,7 @@ class FindAndTillInputElement extends HTMLDivElement
     @removePanel()
 
   removePanel: ->
-    return unless @mainEditor.findAndTillInputView
     atom.workspace.getActivePane().activate()
-    @mainEditor.findAndTillInputView = null
     @panel.destroy()
 
 module.exports =

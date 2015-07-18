@@ -55,7 +55,7 @@ module.exports = FindAndTill =
       newCursors = editor.getCursorBufferPositions().map (cursor) ->
         line = editor.lineTextForBufferRow(cursor.row)
         index = finder(line, char, cursor.column)
-        return [cursor, cursor] unless index > 0
+        return [cursor, cursor] unless index >= 0
         [new Point(cursor.row, index + offset), cursor]
 
       cursorHandler(editor, newCursors)
